@@ -1,5 +1,7 @@
+import IStack from "./IStack";
+
 // 封装一个栈(类) 底层基于数组封装
-class ArrayStack<T = any> {
+class ArrayStack<T = any> implements IStack<T> {
   // 定义一个数组，用于存储元素
   private data: T[] = [];
 
