@@ -31,4 +31,4 @@ class ArrayStack<T = any> implements IStack<T> {
   }
 }
 
-export {};
+export default ArrayStack;

@@ -29,14 +29,15 @@ class ArrayStack {
   }
 }
 
-// 创建Stack的实例
-const stack1 = new ArrayStack();
+export default ArrayStack;
+// // 创建Stack的实例
+// const stack1 = new ArrayStack();
 
-stack1.push("aaa");
-stack1.push("bbb");
-stack1.push("ccc");
-console.log("stack1.size()", stack1.size());
-console.log("stack1.peek()", stack1.peek());
-console.log("stack1.isEmpty()", stack1.isEmpty());
-stack1.pop();
-console.log("stack1.size()", stack1.size());
+// stack1.push("aaa");
+// stack1.push("bbb");
+// stack1.push("ccc");
+// console.log("stack1.size()", stack1.size());
+// console.log("stack1.peek()", stack1.peek());
+// console.log("stack1.isEmpty()", stack1.isEmpty());
+// stack1.pop();
+// console.log("stack1.size()", stack1.size());
