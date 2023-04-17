@@ -1,0 +1,27 @@
+{
+  // 用来指定 tasks.json 文件的版本，这里的版本为 "2.0.0"。
+  "version": "2.0.0",
+  // 一个数组，包含了多个任务。这里只有一个任务，所以数组中只有一个元素。
+  "tasks": [
+    {
+      // 用来指定任务的类型。这里的类型为 "typescript"，表示这个任务是用来编译 TypeScript 代码的。
+      "type": "typescript",
+      //  指定了 TypeScript 编译器使用的配置文件。
+      "tsconfig": "tsconfig.json",
+      //  指定了编译器的选项。这里的值为 "watch"，表示编译器会在代码发生变化时自动重新编译代码。
+      "option": "watch",
+      // 用来指定编译器的问题匹配器。这里的值为 ["$tsc-watch"]，表示使用 $tsc-watch 问题匹配器，
+      // 可以捕获编译器输出中的错误信息，并在 Visual Studio Code 的“问题”面板中显示出来。
+      "problemMatcher": ["$tsc-watch"],
+      //  用来指定任务的分组信息。
+      "group": {
+        // 表示这是一个构建任务。
+        "kind": "build",
+        // 表示这个任务是默认任务，会在不指定任务名称的情况下执行。
+        "isDefault": true
+      },
+      // 用来指定任务的标签，这个标签会在 Visual Studio Code 中显示。
+      "label": "tsc: build - tsconfig.json"
+    }
+  ]
+}

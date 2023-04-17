@@ -1,0 +1,21 @@
+{
+  // 该属性用于指定编译器的编译选项。
+  "compilerOptions": {
+    // 指定编译后的 JavaScript 代码的目标版本。
+    "target": "es6",
+    // 指定使用的模块系统。
+    "module": "commonjs",
+    // 指定是否生成源映射文件。源映射文件可以将编译后的 JavaScript 代码映射回原始的 TypeScript 代码，以便于调试。
+    "sourceMap": true,
+    // 指定输出目录，即编译后的 JavaScript 代码所放置的目录。在这个示例中，我们指定了输出目录为 "./out"。
+    "outDir": "./out",
+    // 指定是否启用严格类型检查。在这个示例中，我们启用了严格类型检查。
+    "strict": true,
+    // 指定模块解析策略。
+    "moduleResolution": "node"
+  },
+  // 该属性用于指定要编译的 TypeScript 文件的路径。
+  "include": ["src/**/*.ts"]
+  // 该属性用于指定不需要编译的文件或目录的路径。
+  // "exclude": ["node_modules"]
+}
