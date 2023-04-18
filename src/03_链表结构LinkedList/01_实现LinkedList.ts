@@ -163,12 +163,12 @@ class LinkedList<T> {
   }
 }
 
-const linkedList = new LinkedList<string>();
-linkedList.append("aaa");
-linkedList.append("bbb");
-linkedList.append("ccc");
-linkedList.append("ddd");
-console.log(linkedList.removeAt(4));
-linkedList.traverse();
+// const linkedList = new LinkedList<string>();
+// linkedList.append("aaa");
+// linkedList.append("bbb");
+// linkedList.append("ccc");
+// linkedList.append("ddd");
+// console.log(linkedList.removeAt(4));
+// linkedList.traverse();
 
-export {};
+export default LinkedList;
