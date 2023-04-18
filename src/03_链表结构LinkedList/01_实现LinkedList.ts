@@ -22,7 +22,6 @@ class LinkedList<T> {
       let current: Node<T> | null = this.head;
       while (current.next) {
         current = current.next;
-        debugger;
       }
 
       current.next = newNode;
@@ -39,7 +38,6 @@ class LinkedList<T> {
   traverse() {
     let current = this.head;
     while (current) {
-      console.log(current.value);
       current = current.next;
     }
   }
