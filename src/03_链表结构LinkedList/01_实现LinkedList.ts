@@ -59,28 +59,30 @@ class LinkedList<T> {
   // 指定位置删除节点
   removeAt(position: number) {
     // 越界判断
-    if (position < 0 || position > this.size) return false;
+    if (position < 0 || position >= this.size) return false;
+
+    let previousNode = null;
+    let currentNode = this.head;
 
     if (position === 0) {
-      this.head = this.head!.next ?? null;
+      // 删除头节点
+      this.head = currentNode!.next;
     } else {
-      let preNode = this.head;
-      let currentNode = null;
-      let nextNode = null;
-
-      for (let i = 1; i < position; i++) {
-        preNode = preNode!.next;
-        currentNode = preNode!.next;
-        nextNode = currentNode?.next ?? null;
+      // 寻找删除位置的前一个节点
+      for (let i = 0; i < position - 1; i++) {
+        previousNode = currentNode;
+        currentNode = currentNode!.next;
       }
 
-      if (nextNode) {
-        preNode!.next = nextNode;
-        currentNode!.next = null;
-      } else {
-        preNode!.next = null;
-      }
+      // 更新前一个节点的next指针，从而删除当前节点
+      previousNode!.next = currentNode!.next;
     }
+
+    // 更新链表长度
+    this.size--;
+
+    // 返回被删除节点的值
+    return currentNode!.value;
   }
 
   // 遍历链表的方法
