@@ -57,7 +57,7 @@ class LinkedList<T> {
   }
 
   // 指定位置删除节点
-  removeAt(position: number) {
+  removeAt(position: number): T | null {
     // 越界判断
     if (position < 0 || position >= this.size) return null;
 
@@ -75,7 +75,7 @@ class LinkedList<T> {
     this.size--;
 
     // 返回被删除节点的值
-    return current?.value;
+    return current?.value ?? null;
   }
 
   // 获取对应位置的元素值
@@ -96,6 +96,39 @@ class LinkedList<T> {
     }
 
     console.log(values.join("->"));
+  }
+
+  // 修改更新节点
+  update(value: T, position: number): boolean {
+    if (position < 0 || position >= this.size) return false;
+    const currentNode = this.getNode(position);
+    currentNode!.value = value;
+    return true;
+  }
+
+  // 根据值，获取索引
+  indexOf(value: T) {
+    let current = this.head;
+    let index = 0;
+    while (current) {
+      if (current.value === value) {
+        return index;
+      }
+      current = current.next;
+      index++;
+    }
+    return -1;
+  }
+
+  // 根据值删除一项
+  remove(value: T): T | null {
+    const index = this.indexOf(value);
+    return this.removeAt(index);
+  }
+
+  // 判断链表是否为空
+  isEmpty() {
+    return this.size === 0;
   }
 
   // 辅助函数：在链表头部插入节点
