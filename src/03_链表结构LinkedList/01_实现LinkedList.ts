@@ -85,18 +85,12 @@ class LinkedList<T> {
     return currentNode!.value;
   }
 
-  // 获取对应位置的元素
+  // 获取对应位置的元素值
   get(position: number) {
     // 越界判断
-    if (position < 0 || position >= this.size) return false;
+    if (position < 0 || position >= this.size) return null;
 
-    let current = this.head;
-
-    for (let i = 0; i < position; i++) {
-      current = current!.next;
-    }
-
-    return current!.value;
+    return this.getNode(position)?.value ?? null;
   }
 
   // 遍历链表的方法
@@ -129,6 +123,17 @@ class LinkedList<T> {
       newNode.next = previousNode!.next;
       previousNode!.next = newNode;
     }
+  }
+
+  // 辅助函数：根据position 获取当前的节点（不是节点的value，而是整个节点）
+  private getNode(position: number): Node<T> | null {
+    let current = this.head;
+
+    for (let i = 0; i < position; i++) {
+      current = current!.next;
+    }
+
+    return current;
   }
 }
 
