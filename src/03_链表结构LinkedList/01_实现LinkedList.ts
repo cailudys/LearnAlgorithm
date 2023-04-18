@@ -43,22 +43,23 @@ class LinkedList<T> {
     const newNode = new Node(value);
 
     if (position === 0) {
+      // 插入到链表头部
       newNode.next = this.head;
       this.head = newNode;
-    }
-
-    if (position !== 0) {
-      let preItem = this.head;
-
-      if (position !== 1) {
-        for (let i = 1; i < position; i++) {
-          preItem = preItem!.next;
-        }
+    } else {
+      // 寻找插入位置的前一个节点
+      let previousNode = this.head;
+      for (let i = 1; i < position; i++) {
+        previousNode = previousNode!.next;
       }
 
-      newNode.next = preItem!.next;
-      preItem!.next = newNode;
+      // 将新节点插入到链表中
+      newNode.next = previousNode!.next;
+      previousNode!.next = newNode;
     }
+
+    // 更新链表长度
+    this.size++;
 
     return true;
   }
