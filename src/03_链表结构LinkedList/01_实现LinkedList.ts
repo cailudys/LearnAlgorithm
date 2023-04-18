@@ -34,7 +34,7 @@ class LinkedList<T> {
     this.size++;
   }
 
-  // 插入方法
+  // 指定位置插入节点
   insert(value: T, position: number): boolean {
     // 越界判断
     if (position < 0 || position > this.size) return false;
@@ -44,28 +44,43 @@ class LinkedList<T> {
 
     if (position === 0) {
       // 插入到链表头部
-      newNode.next = this.head;
-      this.head = newNode;
+      this.insertAtHead(newNode);
     } else {
-      // 寻找插入位置的前一个节点
-      let previousNode = this.head;
-      for (let i = 1; i < position; i++) {
-        previousNode = previousNode!.next;
-      }
-
-      if (position === this.size) {
-        previousNode!.next = newNode;
-      } else {
-        // 将新节点插入到链表中
-        newNode.next = previousNode!.next;
-        previousNode!.next = newNode;
-      }
+      // 在指定位置插入节点
+      this.insertAtPosition(newNode, position);
     }
 
     // 更新链表长度
     this.size++;
 
     return true;
+  }
+
+  // 指定位置删除节点
+  removeAt(position: number) {
+    // 越界判断
+    if (position < 0 || position > this.size) return false;
+
+    if (position === 0) {
+      this.head = this.head!.next ?? null;
+    } else {
+      let preNode = this.head;
+      let currentNode = null;
+      let nextNode = null;
+
+      for (let i = 1; i < position; i++) {
+        preNode = preNode!.next;
+        currentNode = preNode!.next;
+        nextNode = currentNode?.next ?? null;
+      }
+
+      if (nextNode) {
+        preNode!.next = nextNode;
+        currentNode!.next = null;
+      } else {
+        preNode!.next = null;
+      }
+    }
   }
 
   // 遍历链表的方法
@@ -79,6 +94,26 @@ class LinkedList<T> {
 
     console.log(values.join("->"));
   }
+
+  // 辅助函数：在链表头部插入节点
+  private insertAtHead(newNode: Node<T>): void {
+    newNode.next = this.head;
+    this.head = newNode;
+  }
+
+  // 辅助函数：在指定位置插入节点
+  private insertAtPosition(newNode: Node<T>, position: number): void {
+    let previousNode = this.head;
+    for (let i = 1; i < position; i++) {
+      previousNode = previousNode!.next;
+    }
+    if (position === this.size) {
+      previousNode!.next = newNode;
+    } else {
+      newNode.next = previousNode!.next;
+      previousNode!.next = newNode;
+    }
+  }
 }
 
 const linkedList = new LinkedList<string>();
@@ -86,7 +121,7 @@ linkedList.append("aaa");
 linkedList.append("bbb");
 linkedList.append("ccc");
 linkedList.append("ddd");
-linkedList.insert("eee", 4);
+linkedList.removeAt(0);
 linkedList.traverse();
 
 export {};
