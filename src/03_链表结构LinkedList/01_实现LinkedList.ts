@@ -85,6 +85,20 @@ class LinkedList<T> {
     return currentNode!.value;
   }
 
+  // 获取对应位置的元素
+  get(position: number) {
+    // 越界判断
+    if (position < 0 || position >= this.size) return false;
+
+    let current = this.head;
+
+    for (let i = 0; i < position; i++) {
+      current = current!.next;
+    }
+
+    return current!.value;
+  }
+
   // 遍历链表的方法
   traverse() {
     const values: T[] = [];
@@ -123,7 +137,7 @@ linkedList.append("aaa");
 linkedList.append("bbb");
 linkedList.append("ccc");
 linkedList.append("ddd");
-linkedList.removeAt(0);
+console.log(linkedList.get(3));
 linkedList.traverse();
 
 export {};
