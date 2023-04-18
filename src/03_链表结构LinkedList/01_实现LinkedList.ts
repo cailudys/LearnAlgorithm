@@ -34,6 +34,35 @@ class LinkedList<T> {
     this.size++;
   }
 
+  // 插入方法
+  insert(value: T, position: number): boolean {
+    // 越界判断
+    if (position < 0 || position > this.size) return false;
+
+    // 根据value创建新的节点
+    const newNode = new Node(value);
+
+    if (position === 0) {
+      newNode.next = this.head;
+      this.head = newNode;
+    }
+
+    if (position !== 0) {
+      let preItem = this.head;
+
+      if (position !== 1) {
+        for (let i = 1; i < position; i++) {
+          preItem = preItem!.next;
+        }
+      }
+
+      newNode.next = preItem!.next;
+      preItem!.next = newNode;
+    }
+
+    return true;
+  }
+
   // 遍历链表的方法
   traverse() {
     const values: T[] = [];
@@ -52,6 +81,9 @@ linkedList.append("aaa");
 linkedList.append("bbb");
 linkedList.append("ccc");
 linkedList.append("ddd");
+linkedList.insert("abc", 0);
+linkedList.insert("cba", 0);
+linkedList.insert("ab", 3);
 console.log("333333333", linkedList.length);
 linkedList.traverse();
 
