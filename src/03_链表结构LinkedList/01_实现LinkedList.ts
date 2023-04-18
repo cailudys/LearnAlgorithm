@@ -59,30 +59,23 @@ class LinkedList<T> {
   // 指定位置删除节点
   removeAt(position: number) {
     // 越界判断
-    if (position < 0 || position >= this.size) return false;
+    if (position < 0 || position >= this.size) return null;
 
-    let previousNode = null;
-    let currentNode = this.head;
-
+    let current = this.head;
     if (position === 0) {
-      // 删除头节点
-      this.head = currentNode!.next;
+      this.head = this.head!.next;
     } else {
-      // 寻找删除位置的前一个节点
-      for (let i = 0; i < position - 1; i++) {
-        previousNode = currentNode;
-        currentNode = currentNode!.next;
-      }
-
+      const previousNode = this.getNode(position - 1);
+      current = previousNode!.next;
       // 更新前一个节点的next指针，从而删除当前节点
-      previousNode!.next = currentNode!.next;
+      previousNode!.next = previousNode!.next?.next ?? null;
     }
 
     // 更新链表长度
     this.size--;
 
     // 返回被删除节点的值
-    return currentNode!.value;
+    return current?.value;
   }
 
   // 获取对应位置的元素值
@@ -142,7 +135,7 @@ linkedList.append("aaa");
 linkedList.append("bbb");
 linkedList.append("ccc");
 linkedList.append("ddd");
-console.log(linkedList.get(3));
+console.log(linkedList.removeAt(4));
 linkedList.traverse();
 
 export {};
