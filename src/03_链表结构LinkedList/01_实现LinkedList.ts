@@ -53,9 +53,13 @@ class LinkedList<T> {
         previousNode = previousNode!.next;
       }
 
-      // 将新节点插入到链表中
-      newNode.next = previousNode!.next;
-      previousNode!.next = newNode;
+      if (position === this.size) {
+        previousNode!.next = newNode;
+      } else {
+        // 将新节点插入到链表中
+        newNode.next = previousNode!.next;
+        previousNode!.next = newNode;
+      }
     }
 
     // 更新链表长度
@@ -82,10 +86,7 @@ linkedList.append("aaa");
 linkedList.append("bbb");
 linkedList.append("ccc");
 linkedList.append("ddd");
-linkedList.insert("abc", 0);
-linkedList.insert("cba", 0);
-linkedList.insert("ab", 3);
-console.log("333333333", linkedList.length);
+linkedList.insert("eee", 4);
 linkedList.traverse();
 
 export {};
