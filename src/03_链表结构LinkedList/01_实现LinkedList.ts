@@ -36,10 +36,14 @@ class LinkedList<T> {
 
   // 遍历链表的方法
   traverse() {
+    const values: T[] = [];
     let current = this.head;
     while (current) {
+      values.push(current.value);
       current = current.next;
     }
+
+    console.log(values.join("->"));
   }
 }
 
