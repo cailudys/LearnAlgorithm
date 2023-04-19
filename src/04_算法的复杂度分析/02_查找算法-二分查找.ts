@@ -15,6 +15,8 @@ function binarySearch(array: number[], num: number) {
   return middleIndex;
 }
 
-const array = [1, 2, 3];
+const array = [111, 222, 333, 4444, 555, 666, 777, 888, 999];
 
-console.log(binarySearch(array, 4));
+console.log(binarySearch(array, 666));
+
+export default binarySearch;
