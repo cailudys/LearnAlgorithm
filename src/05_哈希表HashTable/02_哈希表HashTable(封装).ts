@@ -1,3 +1,5 @@
+import isPrime from "./03_判断数字是否为质数";
+
 class HashTable<T = any> {
   // 创建一个数组，用来存放 链地址法 中的 链 每一项都是一个元组
   private storage: Array<[string, T][]> = [];
@@ -42,15 +44,11 @@ class HashTable<T = any> {
     });
   }
   // 判断数字是否是一个质数
-  isPrime(num: number): boolean {
+  private getNewPrime(num: number): number {
+    let newNum = num;
     // 质数（素数）的特点：只能被1和自己整除
-
-    for (let i = 2; i < num; i++) {
-      const mod = num % i;
-      if (mod === 0) return false;
-    }
-
-    return true;
+    while (!isPrime(newNum)) newNum++;
+    return newNum;
   }
 
   // 插入数据，修改数据 （如果key已存在就是修改操作，如果key不存在就是插入操作）
@@ -76,7 +74,8 @@ class HashTable<T = any> {
       // 计算loadFactor (进行扩容操作)
       const loadFactor = this.count / this.length;
       if (loadFactor > 0.75) {
-        this.resize(this.length * 2);
+        let newLength = this.length * 2;
+        this.resize(this.getNewPrime(newLength));
       }
     } else {
       this.storage[index][findIndex][1] = value;
@@ -116,7 +115,8 @@ class HashTable<T = any> {
       // 计算loadFactor (进行缩容操作)  一般情况<0.25 进行缩容
       const loadFactor = this.count / this.length;
       if (loadFactor < 0.25 && this.length > 7) {
-        this.resize(Math.floor(this.length / 2));
+        let newLength = this.length / 2;
+        this.resize(this.getNewPrime(newLength));
       }
 
       return tupleValue;
