@@ -21,7 +21,7 @@ class HashTable<T = any> {
     return index;
   }
 
-  // 重新改变容量
+  // 改变容量；从新排序
   private resize(newLength: number) {
     // 设置新的长度
     this.length = newLength;
@@ -40,6 +40,17 @@ class HashTable<T = any> {
         this.put(tuple[0], tuple[1]);
       }
     });
+  }
+  // 判断数字是否是一个质数
+  isPrime(num: number): boolean {
+    // 质数（素数）的特点：只能被1和自己整除
+
+    for (let i = 2; i < num; i++) {
+      const mod = num % i;
+      if (mod === 0) return false;
+    }
+
+    return true;
   }
 
   // 插入数据，修改数据 （如果key已存在就是修改操作，如果key不存在就是插入操作）
