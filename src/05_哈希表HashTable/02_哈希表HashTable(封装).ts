@@ -44,9 +44,40 @@ class HashTable<T = any> {
       this.storage[index][findIndex][1] = value;
     }
   }
+
+  // 根据key获取值，获取不到的时候返回false
+  get(key: string): T | undefined {
+    // 1.根据key获取索引idnex
+    const index = this.getIndex(key, this.length);
+    // 2.取出对应索引值对应位置的数组（桶）
+    let bucket = this.storage[index];
+    // 3.判断bucket是否有值
+    if (!bucket) return undefined;
+
+    // 4.确定已经有了一个数组了，但是数组中是否已存在key是不确定的
+    const findIndex = this.storage[index].findIndex((item) => item[0] === key);
+    if (findIndex < 0) {
+      return undefined;
+    } else {
+      return this.storage[index][findIndex][1];
+    }
+  }
 }
 
 // 测试
 const hashTbale = new HashTable();
+hashTbale.put("qwe", 100);
+hashTbale.put("ewq", 200);
+hashTbale.put("www", 300);
+hashTbale.put("qqq", 100);
+hashTbale.put("ttt", 2005813510);
+hashTbale.put("yyy", 300);
+hashTbale.put("uuu", 100);
+hashTbale.put("tyu", 200);
+hashTbale.put("ggr", 300);
+
+console.log(hashTbale.get("www"));
+console.log(hashTbale.get("ttt"));
+console.log(hashTbale.get("ddd"));
 
 export default HashTable;
