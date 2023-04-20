@@ -21,6 +21,27 @@ class HashTable<T = any> {
     return index;
   }
 
+  // 重新改变容量
+  private resize(newLength: number) {
+    // 设置新的长度
+    this.length = newLength;
+
+    // 获取原来的所有数据，并且重新放入到新的容器数组中
+    // 1、对数据进行初始化操作
+    const oldStorage = this.storage;
+    this.storage = [];
+    this.count = 0;
+
+    //2、获取旧的数据，放入新的数组中
+    oldStorage.forEach((bucket) => {
+      if (!bucket) return;
+      for (let i = 0; i < bucket.length; i++) {
+        const tuple = bucket[i];
+        this.put(tuple[0], tuple[1]);
+      }
+    });
+  }
+
   // 插入数据，修改数据 （如果key已存在就是修改操作，如果key不存在就是插入操作）
   put(key: string, value: T): void {
     // 1.根据key获取索引idnex
@@ -40,6 +61,12 @@ class HashTable<T = any> {
     if (findIndex < 0) {
       this.storage[index].push([key, value]);
       this.count++;
+
+      // 计算loadFactor (进行扩容操作)
+      const loadFactor = this.count / this.length;
+      if (loadFactor > 0.75) {
+        this.resize(this.length * 2);
+      }
     } else {
       this.storage[index][findIndex][1] = value;
     }
@@ -75,6 +102,12 @@ class HashTable<T = any> {
       const tupleValue = this.storage[index][findIndex][1];
       bucket.splice(findIndex, 1);
       this.count--;
+      // 计算loadFactor (进行缩容操作)  一般情况<0.25 进行缩容
+      const loadFactor = this.count / this.length;
+      if (loadFactor < 0.25 && this.length > 7) {
+        this.resize(Math.floor(this.length / 2));
+      }
+
       return tupleValue;
     }
   }
@@ -85,11 +118,5 @@ const hashTbale = new HashTable();
 hashTbale.put("qwe", 100);
 hashTbale.put("ewq", 200);
 hashTbale.put("www", 300);
-
-console.log(hashTbale.delete("qwe"));
-
-console.log(hashTbale.delete("www"));
-
-console.log(hashTbale.delete("111"));
 
 export default HashTable;
