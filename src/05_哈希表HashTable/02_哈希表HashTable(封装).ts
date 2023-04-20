@@ -115,7 +115,7 @@ class HashTable<T = any> {
       // 计算loadFactor (进行缩容操作)  一般情况<0.25 进行缩容
       const loadFactor = this.count / this.length;
       if (loadFactor < 0.25 && this.length > 7) {
-        let newLength = this.length / 2;
+        let newLength = Math.floor(this.length / 2);
         this.resize(this.getNewPrime(newLength));
       }
 
