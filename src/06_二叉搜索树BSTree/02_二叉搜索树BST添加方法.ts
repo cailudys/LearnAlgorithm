@@ -38,21 +38,14 @@ class BSTree<T> {
 
   // 写递归函数，考虑入参，出参，终止条件，和递归调用的时机。
   private insertNode(node: TreeNode<T>, newNode: TreeNode<T>): void {
-    const newNodeValue = newNode.value;
-    const nodeValue = node.value;
-    if (nodeValue > newNodeValue) {
-      if (!node.left) {
-        node.left = newNode;
-        return;
-      }
-      this.insertNode(node.left, newNode);
-    } else {
-      if (!node.right) {
-        node.right = newNode;
-        return;
-      }
-      this.insertNode(node.right, newNode);
+    const direction = newNode.value < node.value ? "left" : "right";
+
+    if (!node[direction]) {
+      node[direction] = newNode;
+      return;
     }
+
+    this.insertNode(node[direction]!, newNode);
   }
 }
 
