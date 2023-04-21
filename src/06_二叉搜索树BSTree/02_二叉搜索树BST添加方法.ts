@@ -36,7 +36,43 @@ class BSTree<T> {
     }
   }
 
-  // 写递归函数，考虑入参，出参，终止条件，和递归调用的时机。
+  /**遍历二叉树 */
+  traverse(node = this.root): void {
+    if (!node) return;
+
+    // 终止条件
+    if (!node.left && !node.right) {
+      console.log(node.value);
+      return;
+    }
+
+    if (node.left) {
+      this.traverse(node.left);
+    }
+    if (node.right) {
+      this.traverse(node.right);
+    }
+
+    console.log(node.value);
+  }
+
+  /**遍历 */
+  // 先序遍历
+  preOrderTraverse(node: TreeNode<T> | null): void {
+    if (!node) return;
+
+    console.log(node.value);
+
+    let current = node;
+    while (current) {
+      current = current.left ?? null;
+    }
+  }
+  // 中序遍历
+  // 后续遍历
+  // 层级遍历
+
+  // 递归
   private insertNode(node: TreeNode<T>, newNode: TreeNode<T>): void {
     const direction = newNode.value < node.value ? "left" : "right";
 
@@ -51,16 +87,21 @@ class BSTree<T> {
 
 const bst = new BSTree<number>();
 
-bst.insert(14);
-bst.insert(35);
-bst.insert(23);
 bst.insert(11);
+bst.insert(7);
+bst.insert(15);
+bst.insert(5);
+bst.insert(9);
+bst.insert(13);
+bst.insert(20);
+bst.insert(3);
+bst.insert(8);
 bst.insert(10);
 bst.insert(12);
-bst.insert(23);
-bst.insert(9);
-bst.insert(6);
+bst.insert(14);
 bst.insert(18);
-bst.insert(17);
+bst.insert(25);
+bst.insert(6);
 btPrint(bst.root);
+bst.traverse();
 export default BSTree;
