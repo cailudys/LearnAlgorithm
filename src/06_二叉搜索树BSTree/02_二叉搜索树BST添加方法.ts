@@ -5,6 +5,7 @@ import { btPrint } from "hy-algokit";
 class TreeNode<T> extends Node<T> {
   left: TreeNode<T> | null = null;
   right: TreeNode<T> | null = null;
+  parent: TreeNode<T> | null = null;
 }
 
 // interface IBSTree<T> {
@@ -22,6 +23,60 @@ class TreeNode<T> extends Node<T> {
 // 实现树的类
 class BSTree<T> {
   root: TreeNode<T> | null = null;
+
+  // 递归插入节点
+  private insertNode(node: TreeNode<T>, newNode: TreeNode<T>): void {
+    const direction = newNode.value < node.value ? "left" : "right";
+
+    if (!node[direction]) {
+      node[direction] = newNode;
+      return;
+    }
+
+    this.insertNode(node[direction]!, newNode);
+  }
+  // 递归打印节点 - 先序遍历
+  private preOrderTraverseNode(node: TreeNode<T> | null) {
+    if (!node) return;
+    console.log(node.value);
+    this.preOrderTraverseNode(node.left);
+    this.preOrderTraverseNode(node.right);
+  }
+  // 递归打印节点 - 中序遍历
+  private inOrderTraverseNode(node: TreeNode<T> | null) {
+    if (!node) return;
+    this.inOrderTraverseNode(node.left);
+    console.log(node.value);
+    this.inOrderTraverseNode(node.right);
+  }
+  // 递归打印节点 - 后遍历
+  private postOrderTraverseNode(node: TreeNode<T> | null) {
+    if (!node) return;
+    this.postOrderTraverseNode(node.left);
+    this.postOrderTraverseNode(node.right);
+    console.log(node.value);
+  }
+
+  // 搜索节点
+  private searchNode(value: T) {
+    // 1. 搜索是否存在传入的值，如果存在找出其父节点
+    let current: TreeNode<T> | null = this.root;
+    let parent: TreeNode<T> | null = null;
+    while (current) {
+      if (current.value === value) return current;
+
+      parent = current;
+      if (current.value < value) {
+        current = current.right;
+      } else {
+        current = current.left;
+      }
+
+      // 如果current有值，那么current保存自己的父节点
+      if (current) current.parent = parent;
+    }
+    return null;
+  }
   // 递归插入数据的操作
   insert(value: T) {
     // 1. 根据传入的value创建TreeNode节点
@@ -84,68 +139,16 @@ class BSTree<T> {
   }
   // 搜索特定的值
   search(value: T): boolean {
-    let current = this.root;
-    while (current) {
-      if (current.value === value) return true;
-      if (current.value < value) {
-        current = current.right;
-      } else {
-        current = current.left;
-      }
-    }
-    return false;
+    const node = this.searchNode(value);
+    return !!node;
   }
   // 删除节点
   remove(value: T): boolean {
-    // 1. 搜索是否存在传入的值，如果存在找出其父节点
-    let current = this.root;
-    let parent: TreeNode<T> | null = null;
-    while (current) {
-      if (current.value === value) break;
-      parent = current;
-      if (current.value < value) {
-        current = current.right;
-      } else {
-        current = current.left;
-      }
-    }
+    const current = this.searchNode(value);
 
-    console.log(current?.value, parent?.value);
+    console.log(current?.value, current?.parent?.value);
 
     return true;
-  }
-
-  // 递归插入节点
-  private insertNode(node: TreeNode<T>, newNode: TreeNode<T>): void {
-    const direction = newNode.value < node.value ? "left" : "right";
-
-    if (!node[direction]) {
-      node[direction] = newNode;
-      return;
-    }
-
-    this.insertNode(node[direction]!, newNode);
-  }
-  // 递归打印节点 - 先序遍历
-  private preOrderTraverseNode(node: TreeNode<T> | null) {
-    if (!node) return;
-    console.log(node.value);
-    this.preOrderTraverseNode(node.left);
-    this.preOrderTraverseNode(node.right);
-  }
-  // 递归打印节点 - 中序遍历
-  private inOrderTraverseNode(node: TreeNode<T> | null) {
-    if (!node) return;
-    this.inOrderTraverseNode(node.left);
-    console.log(node.value);
-    this.inOrderTraverseNode(node.right);
-  }
-  // 递归打印节点 - 后遍历
-  private postOrderTraverseNode(node: TreeNode<T> | null) {
-    if (!node) return;
-    this.postOrderTraverseNode(node.left);
-    this.postOrderTraverseNode(node.right);
-    console.log(node.value);
   }
 }
 
