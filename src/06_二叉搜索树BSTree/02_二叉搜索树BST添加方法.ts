@@ -95,6 +95,26 @@ class BSTree<T> {
     }
     return false;
   }
+  // 删除节点
+  remove(value: T): boolean {
+    // 1. 搜索是否存在传入的值，如果存在找出其父节点
+    let current = this.root;
+    let parent: TreeNode<T> | null = null;
+    while (current) {
+      if (current.value === value) break;
+      parent = current;
+      if (current.value < value) {
+        current = current.right;
+      } else {
+        current = current.left;
+      }
+    }
+
+    console.log(current?.value, parent?.value);
+
+    return true;
+  }
+
   // 递归插入节点
   private insertNode(node: TreeNode<T>, newNode: TreeNode<T>): void {
     const direction = newNode.value < node.value ? "left" : "right";
@@ -147,6 +167,6 @@ bst.insert(18);
 bst.insert(25);
 bst.insert(6);
 btPrint(bst.root);
-console.log(bst.getMaxValue());
-console.log(bst.getMinValue());
+
+bst.remove(15);
 export default BSTree;
