@@ -66,6 +66,22 @@ class BSTree<T> {
       }
     }
   }
+  // 获取最大值
+  getMaxValue(): T | null {
+    let curret = this.root;
+    while (curret && curret.right) {
+      curret = curret.right;
+    }
+    return curret?.value ?? null;
+  }
+  // 获取最小值
+  getMinValue(): T | null {
+    let curret = this.root;
+    while (curret && curret.left) {
+      curret = curret.left;
+    }
+    return curret?.value ?? null;
+  }
   // 递归插入节点
   private insertNode(node: TreeNode<T>, newNode: TreeNode<T>): void {
     const direction = newNode.value < node.value ? "left" : "right";
@@ -118,5 +134,6 @@ bst.insert(18);
 bst.insert(25);
 bst.insert(6);
 btPrint(bst.root);
-bst.levelOrderTraverse();
+console.log(bst.getMaxValue());
+console.log(bst.getMinValue());
 export default BSTree;
