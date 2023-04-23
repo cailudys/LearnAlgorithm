@@ -6,6 +6,14 @@ class TreeNode<T> extends Node<T> {
   left: TreeNode<T> | null = null;
   right: TreeNode<T> | null = null;
   parent: TreeNode<T> | null = null;
+
+  get isLeft(): boolean {
+    return !!(this.parent && this.parent.left === this);
+  }
+
+  get isRight(): boolean {
+    return !!(this.parent && this.parent.right === this);
+  }
 }
 
 // interface IBSTree<T> {
@@ -145,8 +153,21 @@ class BSTree<T> {
   // 删除节点
   remove(value: T): boolean {
     const current = this.searchNode(value);
+    if (!current) return false;
 
-    console.log(current?.value, current?.parent?.value);
+    // 2、获取到三个东西，当前节点，父节点，当前节点是左子节点还是右子节点？
+    // console.log(current?.value, current?.parent?.value);
+    // 2.如果删除的是叶子节点
+    if (current.left === null && current.right === null) {
+      // 叶子节点
+      if (current === this.root) {
+        this.root = null;
+      } else if (current.isLeft) {
+        current.parent!.left = null;
+      } else {
+        current.parent!.right = null;
+      }
+    }
 
     return true;
   }
@@ -171,5 +192,8 @@ bst.insert(25);
 bst.insert(6);
 btPrint(bst.root);
 
-bst.remove(15);
+bst.remove(3);
+bst.remove(8);
+btPrint(bst.root);
+
 export default BSTree;
