@@ -82,6 +82,19 @@ class BSTree<T> {
     }
     return curret?.value ?? null;
   }
+  // 搜索特定的值
+  search(value: T): boolean {
+    let current = this.root;
+    while (current) {
+      if (current.value === value) return true;
+      if (current.value < value) {
+        current = current.right;
+      } else {
+        current = current.left;
+      }
+    }
+    return false;
+  }
   // 递归插入节点
   private insertNode(node: TreeNode<T>, newNode: TreeNode<T>): void {
     const direction = newNode.value < node.value ? "left" : "right";
