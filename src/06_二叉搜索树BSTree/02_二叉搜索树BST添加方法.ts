@@ -41,23 +41,6 @@ class BSTree<T> {
     this.preOrderTraverseNode(this.root);
   }
 
-  //   // 循环遍历节点 - 先序
-  //   preOrderTraversNoRecursion() {
-  //     let stack: Node<T>[] = [];
-  //     let current: Node<T> | null = this.root;
-
-  //     while (current !== null || stack.length !== 0) {
-  //       while (current !== null) {
-  //         console.log(current.value);
-  //         stack.push(current);
-  //         current = current.left;
-  //       }
-  //     }
-
-  //     current = stack.pop();
-  //     current = current.right;
-  //   }
-
   // 中序遍历
   inOrderTraverse() {
     this.inOrderTraverseNode(this.root);
@@ -67,6 +50,25 @@ class BSTree<T> {
     this.postOrderTraverseNode(this.root);
   }
   // 层级遍历
+  levelOrderTraverse() {
+    if (!this.root) return;
+
+    const queue: TreeNode<T>[] = [];
+
+    queue.push(this.root);
+
+    while (queue.length) {
+      const current = queue.shift()!;
+      console.log(current.value);
+
+      if (current.left) {
+        queue.push(current.left);
+      }
+      if (current.right) {
+        queue.push(current.right);
+      }
+    }
+  }
 
   // 递归插入节点
   private insertNode(node: TreeNode<T>, newNode: TreeNode<T>): void {
@@ -103,6 +105,8 @@ class BSTree<T> {
     this.postOrderTraverseNode(node.right);
     console.log(node.value);
   }
+
+  // 一眼
 }
 
 const bst = new BSTree<number>();
@@ -123,5 +127,5 @@ bst.insert(18);
 bst.insert(25);
 bst.insert(6);
 btPrint(bst.root);
-bst.postOrderTraverse();
+bst.levelOrderTraverse();
 export default BSTree;
