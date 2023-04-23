@@ -42,7 +42,11 @@ class BSTree<T> {
   }
 
   // 中序遍历
+  inOrderTraverse() {
+    this.inOrderTraverseNode(this.root);
+  }
   // 后续遍历
+
   // 层级遍历
 
   // 递归插入节点
@@ -64,6 +68,14 @@ class BSTree<T> {
     this.preOrderTraverseNode(node.left);
     this.preOrderTraverseNode(node.right);
   }
+
+  // 递归打印节点 - 中序遍历
+  private inOrderTraverseNode(node: TreeNode<T> | null) {
+    if (!node) return;
+    this.inOrderTraverseNode(node.left);
+    console.log(node.value);
+    this.inOrderTraverseNode(node.right);
+  }
 }
 
 const bst = new BSTree<number>();
@@ -84,5 +96,5 @@ bst.insert(18);
 bst.insert(25);
 bst.insert(6);
 btPrint(bst.root);
-bst.preOrderTraverse();
+bst.inOrderTraverse();
 export default BSTree;
