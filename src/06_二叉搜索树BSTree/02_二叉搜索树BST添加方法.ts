@@ -41,12 +41,31 @@ class BSTree<T> {
     this.preOrderTraverseNode(this.root);
   }
 
+  //   // 循环遍历节点 - 先序
+  //   preOrderTraversNoRecursion() {
+  //     let stack: Node<T>[] = [];
+  //     let current: Node<T> | null = this.root;
+
+  //     while (current !== null || stack.length !== 0) {
+  //       while (current !== null) {
+  //         console.log(current.value);
+  //         stack.push(current);
+  //         current = current.left;
+  //       }
+  //     }
+
+  //     current = stack.pop();
+  //     current = current.right;
+  //   }
+
   // 中序遍历
   inOrderTraverse() {
     this.inOrderTraverseNode(this.root);
   }
   // 后续遍历
-
+  postOrderTraverse() {
+    this.postOrderTraverseNode(this.root);
+  }
   // 层级遍历
 
   // 递归插入节点
@@ -76,6 +95,14 @@ class BSTree<T> {
     console.log(node.value);
     this.inOrderTraverseNode(node.right);
   }
+
+  // 递归打印节点 - 后遍历
+  private postOrderTraverseNode(node: TreeNode<T> | null) {
+    if (!node) return;
+    this.postOrderTraverseNode(node.left);
+    this.postOrderTraverseNode(node.right);
+    console.log(node.value);
+  }
 }
 
 const bst = new BSTree<number>();
@@ -96,5 +123,5 @@ bst.insert(18);
 bst.insert(25);
 bst.insert(6);
 btPrint(bst.root);
-bst.inOrderTraverse();
+bst.postOrderTraverse();
 export default BSTree;
