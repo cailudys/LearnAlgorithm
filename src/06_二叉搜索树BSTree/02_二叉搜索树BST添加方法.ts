@@ -23,7 +23,7 @@ class TreeNode<T> extends Node<T> {
 class BSTree<T> {
   root: TreeNode<T> | null = null;
 
-  /**插入数据的操作 */
+  // 递归插入数据的操作
   insert(value: T) {
     // 1. 根据传入的value创建TreeNode节点
     const newNode = new TreeNode(value);
@@ -36,43 +36,16 @@ class BSTree<T> {
     }
   }
 
-  /**遍历二叉树 */
-  traverse(node = this.root): void {
-    if (!node) return;
-
-    // 终止条件
-    if (!node.left && !node.right) {
-      console.log(node.value);
-      return;
-    }
-
-    if (node.left) {
-      this.traverse(node.left);
-    }
-    if (node.right) {
-      this.traverse(node.right);
-    }
-
-    console.log(node.value);
+  // 递归遍历节点 - 先序
+  preOrderTraverse() {
+    this.preOrderTraverseNode(this.root);
   }
 
-  /**遍历 */
-  // 先序遍历
-  preOrderTraverse(node: TreeNode<T> | null): void {
-    if (!node) return;
-
-    console.log(node.value);
-
-    let current = node;
-    while (current) {
-      current = current.left ?? null;
-    }
-  }
   // 中序遍历
   // 后续遍历
   // 层级遍历
 
-  // 递归
+  // 递归插入节点
   private insertNode(node: TreeNode<T>, newNode: TreeNode<T>): void {
     const direction = newNode.value < node.value ? "left" : "right";
 
@@ -82,6 +55,14 @@ class BSTree<T> {
     }
 
     this.insertNode(node[direction]!, newNode);
+  }
+
+  // 递归打印节点 - 先序遍历
+  private preOrderTraverseNode(node: TreeNode<T> | null) {
+    if (!node) return;
+    console.log(node.value);
+    this.preOrderTraverseNode(node.left);
+    this.preOrderTraverseNode(node.right);
   }
 }
 
@@ -103,5 +84,5 @@ bst.insert(18);
 bst.insert(25);
 bst.insert(6);
 btPrint(bst.root);
-bst.traverse();
+bst.preOrderTraverse();
 export default BSTree;
