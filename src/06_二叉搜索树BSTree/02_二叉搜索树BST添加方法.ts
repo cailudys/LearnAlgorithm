@@ -22,7 +22,6 @@ class TreeNode<T> extends Node<T> {
 // 实现树的类
 class BSTree<T> {
   root: TreeNode<T> | null = null;
-
   // 递归插入数据的操作
   insert(value: T) {
     // 1. 根据传入的value创建TreeNode节点
@@ -35,12 +34,10 @@ class BSTree<T> {
       this.insertNode(this.root, newNode);
     }
   }
-
   // 递归遍历节点 - 先序
   preOrderTraverse() {
     this.preOrderTraverseNode(this.root);
   }
-
   // 中序遍历
   inOrderTraverse() {
     this.inOrderTraverseNode(this.root);
@@ -69,7 +66,6 @@ class BSTree<T> {
       }
     }
   }
-
   // 递归插入节点
   private insertNode(node: TreeNode<T>, newNode: TreeNode<T>): void {
     const direction = newNode.value < node.value ? "left" : "right";
@@ -81,7 +77,6 @@ class BSTree<T> {
 
     this.insertNode(node[direction]!, newNode);
   }
-
   // 递归打印节点 - 先序遍历
   private preOrderTraverseNode(node: TreeNode<T> | null) {
     if (!node) return;
@@ -89,7 +84,6 @@ class BSTree<T> {
     this.preOrderTraverseNode(node.left);
     this.preOrderTraverseNode(node.right);
   }
-
   // 递归打印节点 - 中序遍历
   private inOrderTraverseNode(node: TreeNode<T> | null) {
     if (!node) return;
@@ -97,7 +91,6 @@ class BSTree<T> {
     console.log(node.value);
     this.inOrderTraverseNode(node.right);
   }
-
   // 递归打印节点 - 后遍历
   private postOrderTraverseNode(node: TreeNode<T> | null) {
     if (!node) return;
@@ -105,8 +98,6 @@ class BSTree<T> {
     this.postOrderTraverseNode(node.right);
     console.log(node.value);
   }
-
-  // 一眼
 }
 
 const bst = new BSTree<number>();
