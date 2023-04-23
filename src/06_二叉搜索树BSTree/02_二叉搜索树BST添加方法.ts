@@ -85,6 +85,11 @@ class BSTree<T> {
     }
     return null;
   }
+
+  // 打印节点
+  print() {
+    btPrint(this.root);
+  }
   // 递归插入数据的操作
   insert(value: T) {
     // 1. 根据传入的value创建TreeNode节点
@@ -169,6 +174,27 @@ class BSTree<T> {
       }
     }
 
+    // 3.只有一个子节点：只有左节点
+    else if (current.right === null) {
+      if (current === this.root) {
+        this.root = current.left;
+      } else if (current.isLeft) {
+        current.parent!.left = current.left;
+      } else {
+        current.parent!.right = current.left;
+      }
+    }
+    // 4. 只有一个子节点：只有右节点
+    else if (current.left === null) {
+      if (current === this.root) {
+        this.root = current.right;
+      } else if (current.isLeft) {
+        current.parent!.left = current.right;
+      } else {
+        current.parent!.right = current.right;
+      }
+    }
+
     return true;
   }
 }
@@ -190,10 +216,19 @@ bst.insert(14);
 bst.insert(18);
 bst.insert(25);
 bst.insert(6);
-btPrint(bst.root);
+bst.print();
+console.log("--------------------------------");
+// bst.remove(3);
+// bst.remove(8);
+// bst.remove(8);
+// bst.remove(6);
+// bst.remove(10);
+// bst.remove(12);
+// bst.remove(25);
+// bst.print();
 
-bst.remove(3);
-bst.remove(8);
-btPrint(bst.root);
+// bst.remove(20);
+// bst.remove(13);
+// bst.print();
 
 export default BSTree;
