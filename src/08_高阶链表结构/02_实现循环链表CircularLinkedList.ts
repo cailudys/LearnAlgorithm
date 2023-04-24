@@ -16,4 +16,4 @@ cLinkedList.append("aaa");
 cLinkedList.append("bbb");
 cLinkedList.append("ccc");
 cLinkedList.append("ddd");
-// cLinkedList.traverse()
+cLinkedList.traverse();

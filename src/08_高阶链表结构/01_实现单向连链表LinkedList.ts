@@ -143,7 +143,17 @@ class LinkedList<T> implements ILinkedList<T> {
     let current = this.head;
     while (current) {
       values.push(current.value);
-      current = current.next;
+      if (this.isTail(current)) {
+        // 已经遍历到最后一个节点了
+        current = null;
+      } else {
+        // 不是最后一个节点
+        current = current.next;
+      }
+    }
+
+    if (this.head && this.tail?.next === this.head) {
+      values.push(this.head?.value);
     }
 
     console.log(values.join("->"));
