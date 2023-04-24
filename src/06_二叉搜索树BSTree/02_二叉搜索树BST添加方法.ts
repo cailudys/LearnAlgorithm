@@ -66,7 +66,7 @@ class BSTree<T> {
   }
 
   // 搜索节点
-  private searchNode(value: T) {
+  private searchNode(value: T): TreeNode<T> | null {
     // 1. 搜索是否存在传入的值，如果存在找出其父节点
     let current: TreeNode<T> | null = this.root;
     let parent: TreeNode<T> | null = null;
@@ -84,6 +84,32 @@ class BSTree<T> {
       if (current) current.parent = parent;
     }
     return null;
+  }
+
+  // 找到后继节点
+  private getSuccessor(delNode: TreeNode<T>) {
+    // 获取柚子树
+    let current = delNode.right;
+    let successor: TreeNode<T> | null = null;
+    while (current) {
+      successor = current;
+      current = current.left;
+      if (current) {
+        current.parent = successor;
+      }
+    }
+
+    // 找到后继节点
+    console.log("删除节点：", delNode.value, "后继节点：", successor?.value);
+
+    if (successor !== delNode.right) {
+      successor!.parent!.left = successor!.right;
+      successor!.right = delNode.right;
+    }
+
+    successor!.left = delNode.left;
+
+    return successor;
   }
 
   // 打印节点
@@ -195,6 +221,18 @@ class BSTree<T> {
       }
     }
 
+    // 5.有两个子节点
+    else {
+      const successor = this.getSuccessor(current);
+      if (current === this.root) {
+        this.root = successor;
+      } else if (current.isLeft) {
+        current.parent!.left = successor;
+      } else {
+        current.parent!.right = successor;
+      }
+    }
+
     return true;
   }
 }
@@ -230,5 +268,8 @@ console.log("--------------------------------");
 // bst.remove(20);
 // bst.remove(13);
 // bst.print();
+bst.remove(11);
+bst.remove(15);
 
+bst.print();
 export default BSTree;
