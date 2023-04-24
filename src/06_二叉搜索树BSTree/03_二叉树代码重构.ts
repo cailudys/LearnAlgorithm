@@ -183,30 +183,58 @@ class BSTree<T> {
   }
   // 删除节点
   remove(value: T): boolean {
-    // 1.搜索： 当前是否有这个节点
     const current = this.searchNode(value);
     if (!current) return false;
 
-    // 2.
+    // 2、获取到三个东西，当前节点，父节点，当前节点是左子节点还是右子节点？
+    // console.log(current?.value, current?.parent?.value);
+
     let replaceNode: TreeNode<T> | null = null;
+    // 2.如果删除的是叶子节点
     if (current.left === null && current.right === null) {
-      replaceNode = null;
-    } else if (current.right === null) {
-      replaceNode = current.left;
-    } else if (current.left === null) {
-      replaceNode = current.right;
-    } else {
-      const successor = this.getSuccessor(current);
-      replaceNode = successor;
+      // 叶子节点
+      if (current === this.root) {
+        this.root = null;
+      } else if (current.isLeft) {
+        current.parent!.left = null;
+      } else {
+        current.parent!.right = null;
+      }
     }
 
-    if (current === this.root) {
-      this.root = replaceNode;
-    } else if (current.isLeft) {
-      current.parent!.left = replaceNode;
-    } else {
-      current.parent!.right = replaceNode;
+    // 3.只有一个子节点：只有左节点
+    else if (current.right === null) {
+      if (current === this.root) {
+        this.root = current.left;
+      } else if (current.isLeft) {
+        current.parent!.left = current.left;
+      } else {
+        current.parent!.right = current.left;
+      }
     }
+    // 4. 只有一个子节点：只有右节点
+    else if (current.left === null) {
+      if (current === this.root) {
+        this.root = current.right;
+      } else if (current.isLeft) {
+        current.parent!.left = current.right;
+      } else {
+        current.parent!.right = current.right;
+      }
+    }
+
+    // 5.有两个子节点
+    else {
+      const successor = this.getSuccessor(current);
+      if (current === this.root) {
+        this.root = successor;
+      } else if (current.isLeft) {
+        current.parent!.left = successor;
+      } else {
+        current.parent!.right = successor;
+      }
+    }
+
     return true;
   }
 }
