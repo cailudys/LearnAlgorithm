@@ -1,12 +1,5 @@
 import ILinkedList from "./ILinkedList";
-
-class Node<T> {
-  value: T;
-  next: Node<T> | null = null;
-  constructor(value: T) {
-    this.value = value;
-  }
-}
+import { Node } from "./LinkedNode";
 
 class LinkedList<T> implements ILinkedList<T> {
   // 把 private =》 protected 可以是子类访问到父类的属性
