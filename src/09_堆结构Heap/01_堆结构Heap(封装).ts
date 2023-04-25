@@ -11,7 +11,7 @@ class Heap<T> {
   }
 
   // 上滤操作
-  heapofy_up() {
+  private heapofy_up() {
     let index = this.length - 1;
     while (index > 0) {
       let parentIndex = Math.floor((index - 1) / 2);
@@ -21,6 +21,36 @@ class Heap<T> {
 
       this.swap(index, parentIndex);
       index = parentIndex;
+    }
+  }
+
+  // 下滤操作
+  private heapofy_down() {
+    // 3.1 定义索引位置
+    let index = 0;
+
+    while (2 * index + 1 < this.length) {
+      // 3.2 找到当前节点的左右节点
+      let leftChildIndex = 2 * index + 1;
+      let rightChildIndex = leftChildIndex + 1;
+
+      // 3.3 找到左右子节点的较大的值
+      let largerIndex = leftChildIndex;
+      if (
+        rightChildIndex < this.length &&
+        this.data[rightChildIndex] > this.data[leftChildIndex]
+      ) {
+        largerIndex = rightChildIndex;
+      }
+
+      // 3.4 较大的值和index位置的值进行比较
+      if (this.data[index] >= this.data[largerIndex]) {
+        break;
+      }
+
+      // 3.5 交换位置
+      this.swap(index, largerIndex);
+      index = largerIndex;
     }
   }
 
@@ -51,32 +81,7 @@ class Heap<T> {
     this.length--;
 
     // 3.维护最大堆特性：下滤
-    // 3.1 定义索引位置
-    let index = 0;
-
-    while (2 * index + 1 < this.length) {
-      // 3.2 找到当前节点的左右节点
-      let leftChildIndex = 2 * index + 1;
-      let rightChildIndex = leftChildIndex + 1;
-
-      // 3.3 找到左右子节点的较大的值
-      let largerIndex = leftChildIndex;
-      if (
-        rightChildIndex < this.length &&
-        this.data[rightChildIndex] > this.data[leftChildIndex]
-      ) {
-        largerIndex = rightChildIndex;
-      }
-
-      // 3.4 较大的值和index位置的值进行比较
-      if (this.data[index] >= this.data[largerIndex]) {
-        break;
-      }
-
-      // 3.5 交换位置
-      this.swap(index, largerIndex);
-      index = largerIndex;
-    }
+    this.heapofy_down();
 
     return topValue;
   }
