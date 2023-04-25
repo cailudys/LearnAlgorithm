@@ -48,6 +48,28 @@ class DoublyLinkedList<T> extends LinkedList<T> {
 
     console.log(values.join("->"));
   }
+
+  // 根据索引插入元素
+  insert(value: T, position: number): boolean {
+    if (position < 0 && position > this.length) return false;
+
+    if (position === 0) {
+      this.prepend(value);
+    } else if (position === this.length) {
+      this.append(value);
+    } else {
+      const newNode = new DoublyNode(value);
+      const current = this.getNode(position) as DoublyNode<T>;
+
+      current.prev!.next = newNode;
+      newNode.next = current;
+      newNode.prev = current.prev;
+      current.prev = newNode;
+
+      this.length++;
+    }
+    return true;
+  }
 }
 
 // 测试append方法
@@ -59,5 +81,11 @@ dLinkedList.append("ccc");
 dLinkedList.append("ddd");
 dLinkedList.prepend("abc");
 dLinkedList.prepend("cba");
+dLinkedList.traverse();
+dLinkedList.postTraverse();
+
+dLinkedList.insert("why", 0);
+dLinkedList.insert("kobe", 7);
+dLinkedList.insert("james", 3);
 dLinkedList.traverse();
 dLinkedList.postTraverse();

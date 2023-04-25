@@ -30,7 +30,7 @@ class LinkedList<T> implements ILinkedList<T> {
   }
 
   // 辅助函数：根据position 获取当前的节点（不是节点的value，而是整个节点）
-  private getNode(position: number): Node<T> | null {
+  protected getNode(position: number): Node<T> | null {
     let current = this.head;
 
     for (let i = 0; i < position; i++) {
