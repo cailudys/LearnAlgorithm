@@ -114,7 +114,7 @@ class Heap<T> {
     // 2.从第一个飞叶子节点，开始进行下滤操作
     const start = Math.floor((this.length - 1) / 2);
 
-    for (let i = start; i >= 0; i++) {
+    for (let i = start; i >= 0; i--) {
       this.heapify_down(i);
     }
   }
@@ -123,5 +123,6 @@ class Heap<T> {
 const arr = [19, 100, 36, 17, 3, 25, 1, 2, 7];
 
 const heap = new Heap<number>(arr);
+console.log(arr);
 
 export {};
