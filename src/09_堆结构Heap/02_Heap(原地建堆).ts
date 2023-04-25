@@ -3,6 +3,10 @@ class Heap<T> {
   data: T[] = [];
   private length: number = 0;
 
+  constructor(arr: T[] = []) {
+    this.buildHeap(arr);
+  }
+
   // 两个项互换
   private swap(i: number, j: number) {
     const temp = this.data[i];
@@ -118,7 +122,6 @@ class Heap<T> {
 
 const arr = [19, 100, 36, 17, 3, 25, 1, 2, 7];
 
-const heap = new Heap<number>();
+const heap = new Heap<number>(arr);
 
-heap.buildHeap(arr);
 export {};
